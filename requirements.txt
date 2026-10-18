@@ -1,0 +1,4 @@
+requests>=2.28
+pycryptodome>=3.15
+# 可选: 无系统 ffmpeg 时用来自动获取静态 ffmpeg
+imageio-ffmpeg>=0.4.8

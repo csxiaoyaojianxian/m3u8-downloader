@@ -1,0 +1,11 @@
+# 用户数据与运行时产物
+downloads/
+bin/
+testsite/
+tests/testsite/
+__pycache__/
+*.pyc
+.DS_Store
+*.part
+*.tmp_merge.ts
+.venv/
