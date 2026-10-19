@@ -939,7 +939,16 @@ def main():
     ap.add_argument("--host", default="127.0.0.1")
     args = ap.parse_args()
 
-    server = ThreadingHTTPServer((args.host, args.port), Handler)
+    server = None
+    try:
+        server = ThreadingHTTPServer((args.host, args.port), Handler)
+    except OSError as e:
+        if e.errno == 48:  # EADDRINUSE
+            print(f"[!] 端口 {args.port} 已被占用（可能已有一个下载器在运行）")
+            print(f"    处理: 杀掉旧进程  lsof -ti :{args.port} | xargs kill")
+            print(f"    或换个端口      python3 web_ui.py --port 8766")
+            sys.exit(1)
+        raise
     print(f"M3U8 下载器界面已启动: http://{args.host}:{args.port}")
     print(f"下载文件保存目录: {DOWNLOAD_DIR}")
     try:
